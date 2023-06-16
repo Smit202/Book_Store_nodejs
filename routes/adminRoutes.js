@@ -16,9 +16,9 @@ const booksController = require('./../controllers/booksController');
 
 // router.get('/book/:id', booksController.getBookById, adminController.renderAdminBookDetailsPage);
 
-// router.route('/updateBook/:id')
-// .get(adminController.renderUpdateBookPage)
-// .patch(adminController.updateBook);
+router.route('/updateBook/:id')
+.get(adminController.renderUpdateBookPage)
+.patch(adminController.updateBook);
 
 // router.delete('/deleteBook/:id', booksController.deleteBook);
 
