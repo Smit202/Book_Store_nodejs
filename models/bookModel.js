@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
+const categories = ['Adventure', 'Classics', 'Crime', 'Fantasy', 'Horror', 'Mystery', 'History', 'Poetry', 'Romance', 'Science fiction', 'Biography'];
+
 const bookSchema = mongoose.Schema({
     title: {
         type: String,
@@ -26,13 +28,19 @@ const bookSchema = mongoose.Schema({
     description: {
         type: String
     },
+    category: {
+        type: String,
+        enum: categories,
+    },
     pages: {
+        type: Number,
+    },
+    price: {
         type: Number,
     },
     Quantity: {
         type: Number,
     },
-
 });
 
 // userSchema.pre('save', async function(next) {
