@@ -5,18 +5,18 @@ const bcrypt = require('bcryptjs');
 const userSchema = mongoose.Schema({
     name: {
         type: String,
-        required: [true, "name cannot be empty"],
+        required: [true, "Provide your name"],
     },
     email: {
         type: String,
-        required: [true, "email cannot be empty"],
+        required: [true, "Provide your email"],
         unique: true,
         lowercase: true,
-        validate: [validator.isEmail, "email address is invalid"],
+        validate: [validator.isEmail, "invalid email address"],
     },
     password: {
         type: String,
-        required: [true, "password cannot be empty"],
+        required: [true, "Enter password"],
         minlength: [8, "password must be minimum 8 characters long"],
         select: false
     },
