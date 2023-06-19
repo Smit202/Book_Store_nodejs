@@ -1,7 +1,9 @@
 const jwt = require('jsonwebtoken');
+const { promisify } = require('util');
 const AppError = require('./../utils/appError');
 const userModel = require('./../models/userModel');
 const { catchAsyncErrors } = require('./errorController');
+const { token } = require('morgan');
 
 const generateToken = id => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRE_TIME} )
@@ -43,4 +45,25 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
         token,
         message: 'successfully logged in.'
     });
+});
+
+exports.authenticate = catchAsyncErrors(async (req, res, next) => {
+    let token;
+    if(req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
+        token = req.headers.authorization.split(' ')[1];
+    }
+    if(!token)  throw new AppError('You are not logged! Please login to get access', 401);
+
+    const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+    const currentUser = await userModel.findById(decoded.id).select('+isAdmin');
+    if(!currentUser)   throw new AppError('User of this token no longer exist!', 401);
+
+    req.user = currentUser;
+    next();
+});
+
+exports.restrictToAdmin = catchAsyncErrors(async (req, res, next) => {
+    if(!req.user.isAdmin)   throw new AppError('This url is restricted to only admin, you cannot access!', 403);
+    next();
 });

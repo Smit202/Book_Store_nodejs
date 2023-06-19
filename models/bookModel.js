@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
 
-const categories = ['Adventure', 'Classics', 'Crime', 'Fantasy', 'Horror', 'Mystery', 'History', 'Poetry', 'Romance', 'Science fiction', 'Biography'];
-
 const bookSchema = mongoose.Schema({
     title: {
         type: String,
@@ -25,21 +23,24 @@ const bookSchema = mongoose.Schema({
     language: {
         type: String,
     },
-    description: {
-        type: String
-    },
     category: {
-        type: String,
-        enum: categories,
+        type: [String],
+        required: [true, 'Provide book category'],
     },
     pages: {
         type: Number,
     },
     price: {
         type: Number,
+        required: [true, "Provide book price"],
     },
-    Quantity: {
+    description: {
+        type: String,
+        required: [true, "Provide book description"],
+    },
+    quantity: {
         type: Number,
+        required: [true, "Provide quanity of available books"],
     },
 });
 

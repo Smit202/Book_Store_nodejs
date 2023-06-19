@@ -17,6 +17,12 @@ router.route('/login')
 // router.route('/books')
 // .get(booksController.getAllBooks, userController.renderAllBooksPage);
 
+router.route('/books')
+.get(authController.authenticate, booksController.getAllBooks);
+
+router.route('/book/:id')
+.get(authController.authenticate, booksController.getBookById);
+
 // router.route('/book/:id')
 // .get(booksController.getBookById, userController.renderBookDetailsPage);
 
