@@ -42,6 +42,9 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: [true, "Provide quanity of available books"],
     },
+    image: {
+        type: String,
+    }
 });
 
 // userSchema.pre('save', async function(next) {

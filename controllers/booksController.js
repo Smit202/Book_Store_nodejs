@@ -1,7 +1,22 @@
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 const AppError = require('./../utils/appError');
 const bookModel = require('./../models/bookModel');
 const { catchAsyncErrors } = require('./errorController');
+
+const multerStorage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/images');
+    },
+    filename: (req, file, cb) => {
+        const ext = file.mimetype.split('/');
+        cb(null, `book-${req.book.id}-${Date.now()}.${ext}`);
+    }
+});
+
+const upload = multer({dest: 'public/images'});
+exports.uploadBookImage = upload.single('image');
+
 
 exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
     const books = await bookModel.find();
