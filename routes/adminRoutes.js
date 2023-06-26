@@ -23,11 +23,14 @@ router.route('/books')
 
 // router.delete('/deleteBook/:id', booksController.deleteBook);
 
-router.route('/addBook').post(authController.authenticate, authController.restrictToAdmin, booksController.createBook);
+router.use(authController.authenticate);
+router.use(authController.restrictToAdmin);
+
+router.route('/addBook').post(booksController.uploadBookImage, booksController.createBook);
 
 router.route('/book/:id')
-.get(authController.authenticate, authController.restrictToAdmin, booksController.getBookById)
-.patch(authController.authenticate, authController.restrictToAdmin, booksController.updateBook)
-.delete(authController.authenticate, authController.restrictToAdmin, booksController.deleteBook);
+.get(booksController.getBookById)
+.patch(booksController.updateBook)
+.delete(booksController.deleteBook);
 
 module.exports = router;

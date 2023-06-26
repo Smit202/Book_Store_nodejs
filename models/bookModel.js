@@ -42,22 +42,11 @@ const bookSchema = mongoose.Schema({
         type: Number,
         required: [true, "Provide quanity of available books"],
     },
-    image: {
+    photo: {
         type: String,
+        default: 'default.png',
     }
 });
-
-// userSchema.pre('save', async function(next) {
-//     // only encrypt the password if password is modified
-//     if(!this.isModified('password')) return next();
-    
-//     this.password = await bcrypt.hash(this.password, 12);
-//     next();
-// });
-
-// userSchema.methods.matchPassword = async (candidatePassword, userPassword) => {
-//     return await bcrypt.compare(candidatePassword, userPassword);
-// }
 
 const Book = mongoose.model('Books', bookSchema);
 module.exports = Book;

@@ -64,6 +64,7 @@ exports.authenticate = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.restrictToAdmin = catchAsyncErrors(async (req, res, next) => {
+    // console.log(req.user.isAdmin);
     if(!req.user.isAdmin)   throw new AppError('This url is restricted to only admin, you cannot access!', 403);
     next();
 });
