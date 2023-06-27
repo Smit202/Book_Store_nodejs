@@ -44,6 +44,7 @@ const bookSchema = mongoose.Schema({
     },
     photo: {
         type: String,
+        // required: [true, 'provide book image'],
         default: 'default.png',
     }
 });

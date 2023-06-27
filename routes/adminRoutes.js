@@ -8,8 +8,11 @@ const authController = require('./../controllers/authController');
 // .get(adminController.renderLoginPage)
 // .post(adminController.loginAdmin);
 
+router.use(authController.authenticate);
+router.use(authController.restrictToAdmin);
+
 router.route('/books')
-.get(authController.authenticate, authController.restrictToAdmin, booksController.getAllBooks);
+.get(booksController.getAllBooks);
   
 // router.route('/admin/books/addBook')
 // .get(booksController.renderCreateBookPage)
@@ -23,14 +26,11 @@ router.route('/books')
 
 // router.delete('/deleteBook/:id', booksController.deleteBook);
 
-router.use(authController.authenticate);
-router.use(authController.restrictToAdmin);
-
 router.route('/addBook').post(booksController.uploadBookImage, booksController.createBook);
 
 router.route('/book/:id')
 .get(booksController.getBookById)
 .patch(booksController.updateBook)
-.delete(booksController.deleteBook);
+.delete(booksController.deleteBook); 
 
 module.exports = router;

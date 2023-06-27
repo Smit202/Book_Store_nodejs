@@ -1,5 +1,5 @@
-const jwt = require('jsonwebtoken');
 const multer = require('multer');
+const crypto = require('crypto');
 const AppError = require('./../utils/appError');
 const bookModel = require('./../models/bookModel');
 const { catchAsyncErrors } = require('./errorController');
@@ -9,8 +9,9 @@ const multerStorage = multer.diskStorage({
         cb(null, 'public/images');
     },
     filename: (req, file, cb) => {
-        const ext = file.mimetype.split('/')[1];
-        cb(null, `book-${req.body.id}-${Date.now()}.${ext}`);
+        console.log(file);
+        const ext = file.mimetype.split('/')[1]; 
+        cb(null, `book-${crypto.randomBytes(8).toString('hex')}-${Date.now()}.${ext}`);
     }
 });
 
@@ -30,17 +31,17 @@ const upload = multer({
 
 exports.uploadBookImage = upload.single('photo');
 
-exports.setBookImage = catchAsyncErrors(async (req, res, next) => {
-    const filename = req.file.filename;
-    const id = filename.split('-')[1];
-    const newBook = await bookModel.findByIdAndUpdate(id, {photo: filename});
-    res.status(201).json({
-        status: 'success',
-        data: {
-            book: newBook,
-        }
-    });
-});
+// exports.setBookImage = catchAsyncErrors(async (req, res, next) => {
+//     const filename = req.file.filename;
+//     const id = filename.split('-')[1];
+//     const newBook = await bookModel.findByIdAndUpdate(id, {photo: filename});
+//     res.status(201).json({
+//         status: 'success',
+//         data: {
+//             book: newBook,
+//         }
+//     });
+// });
 
 exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
     const books = await bookModel.find();
@@ -64,12 +65,11 @@ exports.getBookById = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.createBook = catchAsyncErrors(async (req, res, next) => {
+    console.log(req.file);
     console.log(req.body);
     let filterBody = {...req.body};
     if(req.file) filterBody.photo = req.file.filename;
     const newBook = await bookModel.create(filterBody);
-    console.log(req.file);
-    console.log(req.body);
     res.status(201).json({
         status: 'success',
         data: {
