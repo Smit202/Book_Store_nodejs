@@ -1,6 +1,7 @@
 
 const express = require('express');
 const morgan = require('morgan');
+const i18n = require('i18n');
 
 const userRouter = require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
@@ -19,7 +20,7 @@ app.get('/', (req, res) => {
     res.status(200).json({
         status: 'success',
         message: 'Welcome to the book store application',
-    })
+    });
 });
 
 app.all('*', (req, res, next) => {
