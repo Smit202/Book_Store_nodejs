@@ -1,7 +1,7 @@
 const AppError = require("./../utils/appError");
 
-const handleDBValidationError = err => {
-    const errorMessage = Object.values(err.errors).map(item => item.message).join('. ');
+const handleDBValidationError = (err, res) => {
+    const errorMessage = Object.values(err.errors).map(item => res.__(item.message)).join('. ');
     return new AppError(errorMessage, 400);
 }
 
@@ -35,15 +35,15 @@ const sendProductionError = (err, res) => {
 
     if(err.isOperational) {
         res.status(err.statusCode).json({
-            status: err.status,
-            message: err.message,
+            status: res.__(err.status),
+            message: res.__(err.message),
         });
     }
     else {
         console.log(err);
         res.status(500).json({
-            status: 'error',
-            message: 'Programming error at server side!',
+            status: res.__('error'),
+            message: res.__('Programming error at server side!'),
         });
     }
 }
@@ -56,8 +56,8 @@ exports.globalErrorHandler = (err, req, res, next) => {
 
     else if(process.env.NODE_ENV === 'production') {
         let error = err
-        if(error.name === 'CastError')  error = handleDBCastError(err);
-        if(error.name === 'ValidationError')   error = handleDBValidationError(err);
+        if(error.name === 'CastError')  error = handleDBCastError(error);
+        if(error.name === 'ValidationError')   error = handleDBValidationError(error, res);
         if(error.name === 'JsonWebTokenError')  error = handleJWTError(error);
         if(error.name === 'TokenExpiredError')  error = handleJWTExpiredError(error);
         sendProductionError(error, res);
