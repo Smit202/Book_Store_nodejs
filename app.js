@@ -16,7 +16,7 @@ const app = express();
 
 // internationalization
 i18n.configure({
-    locales: ['en', 'hi'],
+    locales: ['en', 'hi', 'gu'],
     directory: path.join(__dirname, '/public/locales'),
     retryInDefaultLocale: false,
     updateFiles: false,
