@@ -2,6 +2,19 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
+const cartSchema = mongoose.Schema({
+    book: {
+        type: mongoose.Types.ObjectId,
+        ref: 'Book',
+        required: true,
+    },
+    quantity: {
+        type: Number,
+        required: [true, "Provide book purchase quantity"],
+    }
+    
+});
+
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -16,7 +29,7 @@ const userSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: [true, "Enter password"],
+        required: [true, "Provide password"],
         minlength: [8, "password must be minimum 8 characters long"],
         select: false
     },
@@ -24,6 +37,13 @@ const userSchema = mongoose.Schema({
         type: Boolean,
         default: false,
         select: false,
+    },
+    carts: {
+        type: [{
+            type: mongoose.Types.ObjectId,
+            ref: 'Cart',
+        }],
+        default: [],
     }
 });
 

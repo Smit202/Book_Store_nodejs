@@ -2,6 +2,9 @@ const express = require('express');
 const router = express.Router();
 const booksController = require('./../controllers/booksController');
 const authController = require('./../controllers/authController');
+const userController = require('./../controllers/userController');
+
+router.use(authController.authenticate);
 
 router.route('/signup')
 // .get(userController.renderSignupPage)
@@ -17,12 +20,19 @@ router.route('/login')
 // .get(booksController.getAllBooks, userController.renderAllBooksPage);
 
 router.route('/books')
-.get(authController.authenticate, booksController.getAllBooks);
+.get(booksController.getAllBooks);
 
 router.route('/book/:id')
-.get(authController.authenticate, booksController.getBookById);
+.get(booksController.getBookById);
 
 // router.route('/book/:id')
 // .get(booksController.getBookById, userController.renderBookDetailsPage);
+
+router.route('/carts').get(userController.getUserAllCarts);
+router.route('/cart/:cartId').get(userController.getUserCartById);
+
+router.route('/book/:bookId/addToCart/:cartId').get(userController.addToCart);
+
+router.route('/cart/:cartId/purchase').get(userController.orderBooks);
 
 module.exports = router;
