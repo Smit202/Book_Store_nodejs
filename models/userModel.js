@@ -2,19 +2,6 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 const bcrypt = require('bcryptjs');
 
-const cartSchema = mongoose.Schema({
-    book: {
-        type: mongoose.Types.ObjectId,
-        ref: 'Book',
-        required: true,
-    },
-    quantity: {
-        type: Number,
-        required: [true, "Provide book purchase quantity"],
-    }
-    
-});
-
 const userSchema = mongoose.Schema({
     name: {
         type: String,
@@ -38,10 +25,17 @@ const userSchema = mongoose.Schema({
         default: false,
         select: false,
     },
-    carts: {
+    // carts: {
+    //     type: [{
+    //         type: mongoose.Types.ObjectId,
+    //         ref: 'Cart',
+    //     }],
+    //     default: [],
+    // },
+    orders: {
         type: [{
             type: mongoose.Types.ObjectId,
-            ref: 'Cart',
+            ref: 'Orders',
         }],
         default: [],
     }
