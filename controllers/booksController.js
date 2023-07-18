@@ -3,6 +3,7 @@ const crypto = require('crypto');
 const AppError = require('./../utils/appError');
 const bookModel = require('./../models/bookModel');
 const { catchAsyncErrors } = require('./errorController');
+const APIFeatures = require('../utils/APIFeatures');
 
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -31,23 +32,63 @@ const upload = multer({
 
 exports.uploadBookImage = upload.single('photo');
 
-// exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
-//     const books = await bookModel.find();
-//     res.status(200).json({
-//         status: res.__('success'),
-//         data: {
-//             books,
-//         }
-//     });
-// });
-
 exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
-    
-    const books = await bookModel.find(req.query);
+    console.log(await bookModel.listIndexes());
+    const features = new APIFeatures(bookModel.find(), req.query)
+    const books = await features.filter().search().sort().limitFields().paginate().query;
+
     res.status(200).json({
         status: res.__('success'),
         data: {
             books,
+        }
+    });
+});
+
+exports.getBooksStates = catchAsyncErrors(async (req, res, next) => {
+    let unwind = {
+        $unwind: {
+            path: '$null',
+            preserveNullAndEmptyArrays: true
+        }
+    };
+    if(req.query.groupBy === 'category') {
+        unwind = {
+            $unwind: '$category'
+        }
+    }
+    if(req.query.groupBy === 'author') {
+        unwind = {
+            $unwind: '$author'
+        }
+    }
+    const statistics = await bookModel.aggregate([
+        unwind,
+        {
+            $match: { ratings: { $gte: 4.0 } }
+        },
+        {
+            $group: {
+                _id: `$${req.query.groupBy}` || null,
+                booksCount: { $sum: 1 },
+                avgPrice: { $avg: '$price' },
+                minPrice: { $min: '$price' },
+                maxPrice: { $max: '$price' },
+                avgPages: { $avg: '$pages' },
+                minPages: { $min: '$pages' },
+                maxPages: { $max: '$pages' },
+                totalQuantity: { $sum: '$quantity' }
+            }
+        },
+        {
+            $sort: { booksCount: -1 }
+        }
+    ])
+
+    res.status(200).json({
+        status: res.__('success'),
+        data: {
+            statistics,
         }
     });
 });

@@ -12,6 +12,8 @@ router.use(authController.restrictToAdmin);
 
 router.route('/books')
 .get(booksController.getAllBooks);
+
+router.route('/books/statistics').get(booksController.getBooksStates);
   
 // router.route('/admin/books/addBook')
 // .get(booksController.renderCreateBookPage)

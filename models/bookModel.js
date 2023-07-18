@@ -30,6 +30,12 @@ const bookSchema = mongoose.Schema({
     pages: {
         type: Number,
     },
+    ratings : {
+        type: Number,
+        required: [true, 'Provide book ratings'],
+        min: [1, 'Ratings must be above 1.0'],
+        max: [5, 'Ratings must be below 5.0']
+    },
     price: {
         type: Number,
         required: [true, "Provide book price"],
@@ -49,5 +55,25 @@ const bookSchema = mongoose.Schema({
     }
 });
 
+// bookSchema.index({
+//     title: 'text',
+//     author: 'text'
+// }, {
+//     weights: {
+//         title: 5,
+//         author: 1
+//     }
+// });
+
 const Book = mongoose.model('Books', bookSchema);
+// Book.collection.createIndex({
+//     title: 'text',
+//     author: 'text'
+// });
+// Book.syncIndexes();
+// Book.collection.dropIndex('title_text_author_text', (err, result) => {
+//     if(err) console.log(err);
+//     else console.log(result);
+// });
+
 module.exports = Book;
