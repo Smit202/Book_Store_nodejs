@@ -31,8 +31,19 @@ const upload = multer({
 
 exports.uploadBookImage = upload.single('photo');
 
+// exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
+//     const books = await bookModel.find();
+//     res.status(200).json({
+//         status: res.__('success'),
+//         data: {
+//             books,
+//         }
+//     });
+// });
+
 exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
-    const books = await bookModel.find();
+    
+    const books = await bookModel.find(req.query);
     res.status(200).json({
         status: res.__('success'),
         data: {

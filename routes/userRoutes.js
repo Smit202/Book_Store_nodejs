@@ -49,6 +49,6 @@ router.route('/cart/:cartId/changeQuantity/:bookId')
 
 router.route('/cart/:cartId/purchase').post(userController.orderBooks);
 router.route('/orders').get(userController.getUserOrders);
-router.route('/order/:oredrId').get(userController.getUserOrderById);
+router.route('/order/:orderId').get(userController.getUserOrderById);
 
 module.exports = router;

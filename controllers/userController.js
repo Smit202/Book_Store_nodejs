@@ -4,6 +4,7 @@ const cartModel = require('./../models/cartModel');
 const orderModel = require('./../models/orderModel');
 const { catchAsyncErrors } = require('./errorController');
 const AppError = require('./../utils/appError');
+const { default: mongoose } = require('mongoose');
 
 exports.getUserAllCarts = catchAsyncErrors(async (req, res, next) => {
     // const userCarts = await userModel.findById(req.user.id, 'carts').populate('carts').populate('book', 'title author price');
@@ -146,9 +147,13 @@ exports.updateBookCartQuantity = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.orderBooks = catchAsyncErrors(async (req, res, next) => {
-    const cart = await cartModel.findById(req.params.cartId)
+    const cart = await cartModel.findById(req.params.cartId);
     if(!cart)   throw new AppError('cart with given id does not exist', 404);
-    const order = await orderModel.create({ orderedItems: req.params.cartId });
+    cart.cartItems.forEach(item => delete item.addedOn);
+    const orderedCart = req.params.cartId;
+    const orderedItems = cart.cartItems;
+    const orderAmount = cart.cartTotal;
+    const order = await orderModel.create({ orderedCart, orderedItems, orderAmount });
 
     res.status(201).json({
         status: res.__('success'),
@@ -160,7 +165,13 @@ exports.orderBooks = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getUserOrders = catchAsyncErrors(async (req, res, next) => {
-    const user = await userModel.findById(req.user.id).populate('orders').populate('orders.orderedItems', 'cartItems cartTotal');
+    const user = await userModel.findById(req.user.id).populate({
+        path: 'orders',
+        populate: {
+            path: 'orderedItems.book',
+            select: 'title author price'
+        }
+    });
     const orders = await user.orders;
     res.status(200).json({
         status: res.__('success'),
@@ -171,10 +182,10 @@ exports.getUserOrders = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getUserOrderById = catchAsyncErrors(async (req, res, next) => {
-    const user = await userModel.findById(req.user.id).populate('orders').populate('orderedItems', 'cartItems cartTotal');
-    if(!user.orders.includes(req.param.orderId))    throw new AppError('order with given id does not exist', 404);
-    // if(!cart)   throw new AppError('cart with given id does not exist', 404);
-    const order = await orderModel.findById(req.param.orderId).populate('orderedItems', 'cartItems cartTotal').populate('cartItems.book', 'title author price');
+    const user = await userModel.findById(req.user.id);
+    const orderId = req.params.orderId;
+    if(!user.orders.includes(orderId))    throw new AppError('order with given id does not exist', 404);
+    const order = await orderModel.findById(orderId).populate('orderedItems.book', 'title author price');
     res.status(200).json({
         status: res.__('success'),
         data: {
