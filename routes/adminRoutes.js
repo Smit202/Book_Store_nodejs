@@ -29,7 +29,7 @@ router.route('/books/statistics').get(booksController.getBooksStates);
 
 router.route('/addBook').post(booksController.uploadBookImage, booksController.createBook);
 
-router.route('/book/:id')
+router.route('/book/:bookId')
 .get(booksController.getBookById)
 .patch(booksController.updateBook)
 .delete(booksController.deleteBook); 

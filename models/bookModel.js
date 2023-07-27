@@ -55,25 +55,19 @@ const bookSchema = mongoose.Schema({
     }
 });
 
-// bookSchema.index({
-//     title: 'text',
-//     author: 'text'
-// }, {
-//     weights: {
-//         title: 5,
-//         author: 1
-//     }
-// });
+bookSchema.index({
+    'title': "text",
+    'author': "text",
+    'description': "text"
+}, {
+    weights: {
+        'title': 10,
+        'author': 5,
+        'description': 1
+    }
+});
 
 const Book = mongoose.model('Books', bookSchema);
-// Book.collection.createIndex({
-//     title: 'text',
-//     author: 'text'
-// });
-// Book.syncIndexes();
-// Book.collection.dropIndex('title_text_author_text', (err, result) => {
-//     if(err) console.log(err);
-//     else console.log(result);
-// });
+Book.syncIndexes();
 
 module.exports = Book;

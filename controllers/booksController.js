@@ -3,7 +3,7 @@ const crypto = require('crypto');
 const AppError = require('./../utils/appError');
 const bookModel = require('./../models/bookModel');
 const { catchAsyncErrors } = require('./errorController');
-const APIFeatures = require('../utils/APIFeatures');
+const APIFeatures = require('../utils/apiFeatures');
 
 const multerStorage = multer.diskStorage({
     destination: (req, file, cb) => {
@@ -33,10 +33,10 @@ const upload = multer({
 exports.uploadBookImage = upload.single('photo');
 
 exports.getAllBooks = catchAsyncErrors(async (req, res, next) => {
-    console.log(await bookModel.listIndexes());
-    const features = new APIFeatures(bookModel.find(), req.query)
-    const books = await features.filter().search().sort().limitFields().paginate().query;
-
+    // console.log(await bookModel.listIndexes());
+    // console.log(req.query);
+    const features = new APIFeatures(bookModel.find(), req.query);
+    const books = await features.search().filter().sort().limitFields().paginate().query;
     res.status(200).json({
         status: res.__('success'),
         data: {
@@ -94,7 +94,8 @@ exports.getBooksStates = catchAsyncErrors(async (req, res, next) => {
 });
 
 exports.getBookById = catchAsyncErrors(async (req, res, next) => {
-    const book = await bookModel.findById(req.params.id);
+    console.log(req.params.bookId)
+    const book = await bookModel.findById(req.params.bookId);
     if(!book)   throw new AppError('book with given id does not exist', 404);
     res.status(200).json({
         status: res.__('success'),

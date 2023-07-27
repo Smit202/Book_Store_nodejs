@@ -1,0 +1,28 @@
+success:
+  description: success
+  content:
+    application/json:
+      schema:
+        enum:
+          - $ref: "./schemas.yaml#/ApiResponse"
+          - $ref: "./schemas.yaml#/ApiDataResponse"
+          - $ref: "./schemas.yaml#/ApiCartResponse"
+          - $ref: "./schemas.yaml#/AuthResponse"
+BadRequest:
+  description: Bad Request
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yaml#/AppError"
+Unauthorized:
+  description: Unauthorized
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yaml#/AppError"
+NotFound:
+  description: Not found
+  content:
+    application/json:
+      schema:
+        $ref: "./schemas.yaml#/AppError"

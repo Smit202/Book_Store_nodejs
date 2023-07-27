@@ -6,7 +6,7 @@ class APIFeatures {
 
     filter() {
         const queryObj = { ...this.queryString };
-        const excludedFields = ['page', 'sort', 'limit', 'fields'];
+        const excludedFields = ['page', 'sort', 'limit', 'fields', 'search'];
         excludedFields.forEach(item => delete queryObj[item]);
 
         let queryStr = JSON.stringify(queryObj);
@@ -21,13 +21,13 @@ class APIFeatures {
             console.log(this.queryString.search)
             this.query = this.query.find({
                 $text: { $search: this.queryString.search }
+            }).sort( {
+                $score: { $meta: 'textScore' }
             });
         }
         return this;
     }
-//  .sort( {
-//     $score: { $meta: 'textScore' }
-// })
+
     sort() {
         if(this.queryString.sort) {
             const sortBy = this.queryString.sort.split(',').join(' ');

@@ -1,0 +1,21 @@
+openapi: "3.0.2"
+components:
+  parameters:
+    bookId:
+      name: bookId
+      in: path
+      schema:
+        type: string
+      required: true
+    cartId:
+      name: cartId
+      in: path
+      schema:
+        type: string
+      required: true
+    orderId:
+      name: orderId
+      in: path
+      schema:
+        type: string
+      required: true

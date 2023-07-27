@@ -139,7 +139,7 @@ exports.updateBookCartQuantity = catchAsyncErrors(async (req, res, next) => {
 
     res.status(200).json({
         status: res.__('success'),
-        message: res.__("Book quantity is successfully updated in cart"),
+        message: res.__(`Book quantity is successfully updated to ${req.query.quantity} in cart`),
         data: {
             cart,
         }
@@ -157,7 +157,6 @@ exports.orderBooks = catchAsyncErrors(async (req, res, next) => {
 
     res.status(201).json({
         status: res.__('success'),
-        message: res.__("Order is successful"),
         data: {
             order,
         }

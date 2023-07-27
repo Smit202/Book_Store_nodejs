@@ -1,0 +1,61 @@
+User:
+  type: object
+  properties:
+    name:
+      type: string
+    email:
+      type: string
+    password:
+      type: string
+      minLength: 8
+    confirmPassword:
+      type: string
+      minLength: 8
+
+ApiResponse:
+  type: object
+  properties:
+    status:
+      type: string
+    message:
+      type: string
+
+ApiDataResponse:
+  type: object
+  properties:
+    status:
+      type: string
+    data:
+      type: object
+
+ApiCartResponse:
+  type: object
+  properties:
+    status:
+      type: string
+    message:
+      type: string
+    data:
+      type: object
+
+AuthResponse:
+  type: object
+  properties:
+    status:
+      type: string
+    token:
+      type: string
+    data:
+      type: object
+
+AppError:
+  type: object
+  properties:
+    status:
+      type: string
+    error:
+      type: object
+    message:
+      type: string
+    stack:
+      type: string

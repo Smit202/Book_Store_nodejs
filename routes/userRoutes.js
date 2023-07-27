@@ -24,7 +24,7 @@ router.use(authController.authenticate);
 router.route('/books')
 .get(booksController.getAllBooks);
 
-router.route('/book/:id')
+router.route('/book/:bookId')
 .get(booksController.getBookById);
 
 // router.route('/book/:id')

@@ -6,13 +6,29 @@ const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
-
+const YAML = require('yamljs');
+const swaggerUI = require('swagger-ui-express');
+const fs = require('fs');
 const userRouter = require('./routes/userRoutes');
 const adminRouter = require('./routes/adminRoutes');
 const AppError = require('./utils/appError');
 const { globalErrorHandler } = require('./controllers/errorController');
 
 const app = express();
+
+// swagger documentation
+const swaggerJsDocs = YAML.load('./docs/api-docs.yaml');
+const swaggerJsDocsAdmin = YAML.load('./docs/api-docs-admin.yaml');
+
+const apiDocsHTML = swaggerUI.generateHTML(swaggerJsDocs);
+const apiDocsAdminHTML = swaggerUI.generateHTML(swaggerJsDocsAdmin);
+
+app.use('/BookStore/api-docs/admin', swaggerUI.serveFiles(swaggerJsDocsAdmin));
+app.get('/BookStore/api-docs/admin', (req, res) => {res.send(apiDocsAdminHTML)});
+
+app.use('/BookStore/api-docs', swaggerUI.serveFiles(swaggerJsDocs));
+app.get('/BookStore/api-docs', (req, res) => {res.send(apiDocsHTML)});
+
 
 // internationalization
 i18n.configure({
@@ -62,7 +78,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routers
 app.use('/BookStore/admin', adminRouter);   // routes for admin panel
 app.use('/BookStore', userRouter);     // routes for user panel
-app.get('/', (req, res, next) => {
+app.get('/BookStore', (req, res, next) => {
     res.status(200).json({
         status: res.__('success'),
         message: res.__('Welcome to the book store application'),

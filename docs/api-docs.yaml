@@ -1,0 +1,524 @@
+openapi: "3.0.2"
+info:
+  title: Book Store Customer's API
+  version: "1.0"
+  description: This is documentaion for Book Store API for customers.
+servers:
+  - url: "http://localhost:3000/"
+
+tags:
+  - name: Authentication
+    description: Auth related routes for registering and login user
+  - name: Books
+    description: Books related routes for getting avialable books
+  - name: Cart
+    description: Cart related routes for adding books in cart
+  - name: Orders
+    description: Orders related routes to order books from cart for customer
+
+components:
+  securitySchemes:
+    jwtToken:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    success:
+      description: success
+      content:
+        application/json:
+          schema:
+            enum:
+              - $ref: "#/components/schemas/ApiResponse"
+              - $ref: "#/components/schemas/ApiDataResponse"
+              - $ref: "#/components/schemas/ApiCartResponse"
+              - $ref: "#/components/schemas/AuthResponse"
+
+    BadRequest:
+      description: Bad Request
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AppError"
+
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AppError"
+
+    NotFound:
+      description: Not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/AppError"
+
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+    password:
+      type: string
+      minLength: 8
+    confirmPassword:
+      type: string
+      minLength: 8
+
+    ApiResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+
+    ApiDataResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        data:
+          type: object
+
+    ApiCartResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        message:
+          type: string
+        data:
+          type: object
+
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+        token:
+          type: string
+        data:
+          type: object
+
+    AppError:
+      type: object
+      properties:
+        status:
+          type: string
+        error:
+          type: object
+        message:
+          type: string
+        stack:
+          type: string
+
+  parameters:
+    bookId:
+      name: bookId
+      in: path
+      schema:
+        type: string
+      required: true
+    cartId:
+      name: cartId
+      in: path
+      schema:
+        type: string
+      required: true
+    orderId:
+      name: orderId
+      in: path
+      schema:
+        type: string
+      required: true
+
+    title:
+      name: title
+      in: query
+      schema:
+        type: string
+    publisher:
+      name: publisher
+      in: query
+      schema:
+        type: string
+    author:
+      name: author
+      in: query
+      schema:
+        type: string
+    ISBN:
+      name: ISBN
+      in: query
+      schema:
+        type: string
+    language:
+      name: language
+      in: query
+      schema:
+        type: string
+    category:
+      name: category
+      in: query
+      schema:
+        type: string
+    price:
+      name: price
+      in: query
+      schema:
+        type: number
+    quantity:
+      name: quantity
+      in: query
+      schema:
+        type: number
+
+    sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+    fields:
+      name: fields
+      in: query
+      schema:
+        type: string
+    search:
+      name: search
+      in: query
+      schema:
+        type: string
+    page:
+      name: page
+      in: query
+      schema:
+        type: number
+    limit:
+      name: quantity
+      in: query
+      schema:
+        type: number
+    
+paths:
+  /BookStore:
+    get:
+      summary: Home Page
+      description: Home Page
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+
+  /BookStore/signup:
+    post:
+      summary: Register
+      description: Register new user
+      operationId: signupUser
+      tags:
+        - "Authentication"
+      requestBody:
+        description: user registration details
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+      responses:
+        "201":
+          description: document created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+
+  /BookStore/login:
+    post:
+      summary: Login
+      description: Login user
+      operationId: loginUser
+      tags:
+        - "Authentication"
+      requestBody:
+        description: user login details
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "400":
+          $ref: "#/components/responses/BadRequest"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /BookStore/books:
+    get:
+      summary: Get all books details
+      description: Get all books details
+      operationId: getAllBooks
+      tags:
+        - "Books"
+      security:
+        - jwtToken: []
+      parameters:
+        - $ref: "#/components/parameters/title"
+        - $ref: "#/components/parameters/publisher"
+        - $ref: "#/components/parameters/author"
+        - $ref: "#/components/parameters/category"
+        - $ref: "#/components/parameters/ISBN"
+        - $ref: "#/components/parameters/language"
+        - $ref: "#/components/parameters/price"
+        - $ref: "#/components/parameters/quantity"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/fields"
+        - $ref: "#/components/parameters/search"
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/limit"
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /BookStore/book/{bookId}:
+    get:
+      summary: Get book by id
+      description: Get book by id
+      operationId: getBookById
+      tags:
+        - "Books"
+      parameters:
+        - $ref: "#/components/parameters/bookId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/carts:
+    get:
+      summary: Get user's all carts
+      description: Get user's all carts
+      operationId: getUserAllCarts
+      tags:
+        - "Cart"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /BookStore/cart/{cartId}:
+    get:
+      summary: Get cart by id
+      description: Get cart by id
+      operationId: getUserCartById
+      tags:
+        - "Cart"
+      parameters:
+        # - $ref: "#/components/parameters/cartId"
+        - $ref: "#/components/parameters/cartId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    delete:
+      summary: delete cart
+      description: delete cart
+      operationId: deleteCart
+      tags:
+        - "Cart"
+      parameters:
+        - $ref: "#/components/parameters/cartId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "204":
+          description: no content
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiDataResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/book/:bookId/addToCart:
+    post:
+      summary: add book to new cart
+      description: add book to new cart
+      operationId: addToNewCart
+      tags:
+        - "Cart"
+      parameters:
+        - $ref: "#/components/parameters/bookId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "201":
+          description: document created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiCartResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/book/:bookId/addToCart/:cartId:
+    patch:
+      summary: add book to existing cart
+      description: add book to existing cart
+      operationId: addToGivenCart
+      tags:
+        - "Cart"
+      parameters:
+        - $ref: "#/components/parameters/bookId"
+        - $ref: "#/components/parameters/cartId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/cart/:cartId/changeQuantity/:bookId:
+    patch:
+      summary: change quantity of book from cart
+      description: change quantity of book from cart
+      operationId: updateBookCartQuantity
+      tags:
+        - "Cart"
+      parameters:
+        - $ref: "#/components/parameters/cartId"
+        - $ref: "#/components/parameters/bookId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/cart/:cartId/removeFromCart/:bookId:
+    patch:
+      summary: remove book from cart
+      description: remove book from cart
+      operationId: removeBookFromCart
+      tags:
+        - "Cart"
+      parameters:
+        - $ref: "#/components/parameters/cartId"
+        - $ref: "#/components/parameters/bookId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/cart/:cartId/purchase:
+    post:
+      summary: purchase books from cart
+      description: purchase books from cart
+      operationId: orderBooks
+      tags:
+        - "Orders"
+      parameters:
+        - $ref: "#/components/parameters/cartId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "201":
+          description: document created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiDataResponse"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /BookStore/orders:
+    get:
+      summary: Get user's all orders
+      description: Get user's all orders
+      operationId: getUserOrders
+      tags:
+        - "Orders"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+
+  /BookStore/order/{orderId}:
+    get:
+      summary: Get user order by id
+      description: Get user order by id
+      operationId: getUserOrderById
+      tags:
+        - "Orders"
+      parameters:
+        - $ref: "#/components/parameters/orderId"
+      security:
+        - jwtToken: []
+
+      responses:
+        "200":
+          $ref: "#/components/responses/success"
+        "401":
+          $ref: "#/components/responses/Unauthorized"
+        "404":
+          $ref: "#/components/responses/NotFound"
