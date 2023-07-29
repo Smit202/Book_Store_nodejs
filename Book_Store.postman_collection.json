@@ -10,437 +10,622 @@
 			"name": "Admin",
 			"item": [
 				{
-					"name": "create book",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "POST",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "title",
-									"value": "Bhagvad Gita As It Is",
-									"type": "text"
+					"name": "Books",
+					"item": [
+						{
+							"name": "create book",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
 								},
-								{
-									"key": "publisher",
-									"value": "Bhaktivedanta Book Trust",
-									"type": "text"
+								"method": "POST",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Bhagvad Gita As It Is",
+											"type": "text"
+										},
+										{
+											"key": "publisher",
+											"value": "Bhaktivedanta Book Trust",
+											"type": "text"
+										},
+										{
+											"key": "author",
+											"value": "Bhaktivedant Swami Prabhupada",
+											"type": "text"
+										},
+										{
+											"key": "ISBN",
+											"value": "9384564192",
+											"type": "text"
+										},
+										{
+											"key": "language",
+											"value": "English",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "Spirituality",
+											"type": "text"
+										},
+										{
+											"key": "category",
+											"value": "Mythology",
+											"type": "text"
+										},
+										{
+											"key": "pages",
+											"value": "924",
+											"type": "text"
+										},
+										{
+											"key": "ratings",
+											"value": "4.5",
+											"type": "text"
+										},
+										{
+											"key": "price",
+											"value": "299",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "The largest-selling edition of the Gita in the Western world, Bhagavad-Gita as It Is, is more than a book. For many it has changed their lives altogether. Universally Bhagavad-Gita is renowned and truly claimed as the crown jewel of India?s spiritual wisdom. Spoken by Lord Krishna the Supreme Personality of Godhead to His intimate disciple Arjuna, the Gita’s seven hundred concise verses provides a definitive guide to the science of self realization. His Divine Grace A. C. Bhaktivedanta Swami Prabhupada, the world’s foremost Vedic scholar and teacher, represents an unbroken chain of fully self-realized spiritual masters beginning with Lord Krishna Himself. Thus unlike other editions of Bhagavad Gita he conveys Lord Krishna?s profound messages as it is ? without a slightest taint of adulteration or personally motivated gains. This edition is for every reader who would like to take a dip in the ocean of spiritual sea and for those who would like to learn the spiritual science ?as it is?.",
+											"type": "text"
+										},
+										{
+											"key": "quantity",
+											"value": "30",
+											"type": "text"
+										},
+										{
+											"key": "photo",
+											"type": "file",
+											"src": "/home/smit/Pictures/Screenshots/Screenshot from 2023-06-22 20-29-20.png"
+										}
+									]
 								},
-								{
-									"key": "author",
-									"value": "Bhaktivedant Swami Prabhupada",
-									"type": "text"
-								},
-								{
-									"key": "ISBN",
-									"value": "9384564192",
-									"type": "text"
-								},
-								{
-									"key": "language",
-									"value": "English",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "Spirituality",
-									"type": "text"
-								},
-								{
-									"key": "category",
-									"value": "Mythology",
-									"type": "text"
-								},
-								{
-									"key": "pages",
-									"value": "924",
-									"type": "text"
-								},
-								{
-									"key": "ratings",
-									"value": "4.5",
-									"type": "text"
-								},
-								{
-									"key": "price",
-									"value": "299",
-									"type": "text"
-								},
-								{
-									"key": "description",
-									"value": "The largest-selling edition of the Gita in the Western world, Bhagavad-Gita as It Is, is more than a book. For many it has changed their lives altogether. Universally Bhagavad-Gita is renowned and truly claimed as the crown jewel of India?s spiritual wisdom. Spoken by Lord Krishna the Supreme Personality of Godhead to His intimate disciple Arjuna, the Gita’s seven hundred concise verses provides a definitive guide to the science of self realization. His Divine Grace A. C. Bhaktivedanta Swami Prabhupada, the world’s foremost Vedic scholar and teacher, represents an unbroken chain of fully self-realized spiritual masters beginning with Lord Krishna Himself. Thus unlike other editions of Bhagavad Gita he conveys Lord Krishna?s profound messages as it is ? without a slightest taint of adulteration or personally motivated gains. This edition is for every reader who would like to take a dip in the ocean of spiritual sea and for those who would like to learn the spiritual science ?as it is?.",
-									"type": "text"
-								},
-								{
-									"key": "quantity",
-									"value": "30",
-									"type": "text"
-								},
-								{
-									"key": "photo",
-									"type": "file",
-									"src": "/home/smit/Pictures/Screenshots/Screenshot from 2023-06-22 20-29-20.png"
+								"url": {
+									"raw": "{{URL}}admin/addBook",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"addBook"
+									]
 								}
-							]
-						},
-						"url": {
-							"raw": "{{URL}}admin/addBook",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"addBook"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "update book",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "PATCH",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"price\": 299,\n    \"quantity\": 30\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}admin/book/:bookId",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"book",
-								":bookId"
-							],
-							"variable": [
-								{
-									"key": "bookId",
-									"value": "64903753c73dc82f7885b941"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "delete book",
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}admin/book/:bookId",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"book",
-								":bookId"
-							],
-							"variable": [
-								{
-									"key": "bookId",
-									"value": "649ae10afa84435a7681chjk"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get book by id",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}admin/book/:bookId",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"book",
-								":bookId"
-							],
-							"variable": [
-								{
-									"key": "bookId",
-									"value": "64903753c73dc82f7885b941"
-								}
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "get all books",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA2M2FlZjdjN2U0MzBmZjFiY2M0ZSIsImlhdCI6MTY4NzE4NDMwMywiZXhwIjoxNjg5Nzc2MzAzfQ.6xBYbJHLSDqJXBIwU-3jTfdWUfBQWAk0supQTUrql9s",
-								"type": "text",
-								"disabled": true
 							},
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
+							"response": []
 						},
-						"url": {
-							"raw": "{{URL}}admin/books?search=Gita",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"books"
-							],
-							"query": [
-								{
-									"key": "title",
-									"value": "",
-									"disabled": true
+						{
+							"name": "update book",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
 								},
-								{
-									"key": "publisher",
-									"value": "",
-									"disabled": true
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 299,\n    \"quantity\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
 								},
-								{
-									"key": "author",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "ISBN",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "language",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "category",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "price",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "quantity",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "fields",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "Gita"
+								"url": {
+									"raw": "{{URL}}admin/book/:bookId",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"book",
+										":bookId"
+									],
+									"variable": [
+										{
+											"key": "bookId",
+											"value": "64903753c73dc82f7885b941"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "delete book",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/book/:bookId",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"book",
+										":bookId"
+									],
+									"variable": [
+										{
+											"key": "bookId",
+											"value": "649ae10afa84435a7681chjk"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get book by id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/book/:bookId",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"book",
+										":bookId"
+									],
+									"variable": [
+										{
+											"key": "bookId",
+											"value": "64903753c73dc82f7885b941"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all books",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA2M2FlZjdjN2U0MzBmZjFiY2M0ZSIsImlhdCI6MTY4NzE4NDMwMywiZXhwIjoxNjg5Nzc2MzAzfQ.6xBYbJHLSDqJXBIwU-3jTfdWUfBQWAk0supQTUrql9s",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/books?search=",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"books"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "publisher",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "author",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "ISBN",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "language",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "quantity",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get books statistics",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}admin/books/statistics?groupBy=category",
+									"host": [
+										"{{URL}}admin"
+									],
+									"path": [
+										"books",
+										"statistics"
+									],
+									"query": [
+										{
+											"key": "groupBy",
+											"value": "category"
+										}
+									]
+								}
+							},
+							"response": []
 						}
-					},
-					"response": []
+					],
+					"description": "Books related routes for admin to perform CRUD on book and view book statistics"
 				},
 				{
-					"name": "get books statistics",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
-						"header": [
-							{
-								"key": "Accept-Language",
-								"value": "hi",
-								"type": "text",
-								"disabled": true
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{URL}}admin/books/statistics?groupBy=category",
-							"host": [
-								"{{URL}}admin"
-							],
-							"path": [
-								"books",
-								"statistics"
-							],
-							"query": [
-								{
-									"key": "groupBy",
-									"value": "category"
-								}
-							]
-						}
-					},
-					"response": []
+					"name": "Orders",
+					"item": [],
+					"description": "Orders related routes for viewing customer orders"
 				}
-			]
+			],
+			"description": "Admin routes"
 		},
 		{
 			"name": "User",
 			"item": [
 				{
-					"name": "cart",
+					"name": "Books",
+					"item": [
+						{
+							"name": "get book by id",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}book/:bookId",
+									"host": [
+										"{{URL}}book"
+									],
+									"path": [
+										":bookId"
+									],
+									"variable": [
+										{
+											"key": "bookId",
+											"value": "649ae10afa84435a7681cbeb"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get all books",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA2M2FlZjdjN2U0MzBmZjFiY2M0ZSIsImlhdCI6MTY4NzE4NDMwMywiZXhwIjoxNjg5Nzc2MzAzfQ.6xBYbJHLSDqJXBIwU-3jTfdWUfBQWAk0supQTUrql9s",
+										"type": "text",
+										"disabled": true
+									},
+									{
+										"key": "Accept-Language",
+										"value": "hi",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URL}}books",
+									"host": [
+										"{{URL}}books"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "publisher",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "author",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "ISBN",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "language",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "category",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "price",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "quantity",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "sort",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "fields",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "page",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "limit",
+											"value": "",
+											"disabled": true
+										},
+										{
+											"key": "search",
+											"value": "gita",
+											"disabled": true
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Books related routes for getting avialable books"
+				},
+				{
+					"name": "Cart",
 					"item": [
 						{
 							"name": "add book to new cart",
@@ -767,10 +952,11 @@
 							},
 							"response": []
 						}
-					]
+					],
+					"description": "Cart related routes for adding books in cart"
 				},
 				{
-					"name": "orders",
+					"name": "Orders",
 					"item": [
 						{
 							"name": "order books from cart",
@@ -906,25 +1092,30 @@
 							},
 							"response": []
 						}
-					]
-				},
+					],
+					"description": "Orders related routes to order books from cart for customer"
+				}
+			],
+			"description": "Customer routes"
+		},
+		{
+			"name": "Authentication",
+			"item": [
 				{
-					"name": "get book by id",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
+						"method": "POST",
 						"header": [
 							{
 								"key": "Accept-Language",
@@ -935,7 +1126,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+							"raw": "{\n    \"name\": \"het\",\n    \"email\": \"het123@gmail.com\",\n    \"password\": \"het12345\",\n    \"confirmPassword\": \"het12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -943,56 +1134,40 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}book/:bookId",
+							"raw": "{{URL}}signup",
 							"host": [
-								"{{URL}}book"
-							],
-							"path": [
-								":bookId"
-							],
-							"variable": [
-								{
-									"key": "bookId",
-									"value": "649ae10afa84435a7681cbeb"
-								}
+								"{{URL}}signup"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "get all books",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set(\"jwt\", pm.response.json().token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
-						"auth": {
-							"type": "bearer",
-							"bearer": [
-								{
-									"key": "token",
-									"value": "{{jwt}}",
-									"type": "string"
-								}
-							]
-						},
-						"method": "GET",
+						"method": "POST",
 						"header": [
-							{
-								"key": "Authorization",
-								"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA2M2FlZjdjN2U0MzBmZjFiY2M0ZSIsImlhdCI6MTY4NzE4NDMwMywiZXhwIjoxNjg5Nzc2MzAzfQ.6xBYbJHLSDqJXBIwU-3jTfdWUfBQWAk0supQTUrql9s",
-								"type": "text",
-								"disabled": true
-							},
 							{
 								"key": "Accept-Language",
 								"value": "hi",
-								"type": "text"
+								"type": "text",
+								"disabled": true
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"price\": 399,\n    \"quantity\": 20\n}",
+							"raw": "{\n    \"email\": \"het123@gmail.com\",\n    \"password\": \"het12345\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1000,84 +1175,19 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}books?search=Gita",
+							"raw": "{{URL}}login",
 							"host": [
-								"{{URL}}books"
-							],
-							"query": [
-								{
-									"key": "title",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "publisher",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "author",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "ISBN",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "language",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "category",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "price",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "quantity",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "sort",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "fields",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "page",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "limit",
-									"value": "",
-									"disabled": true
-								},
-								{
-									"key": "search",
-									"value": "Gita"
-								}
+								"{{URL}}login"
 							]
 						}
 					},
 					"response": []
 				}
-			]
+			],
+			"description": "Auth related routes for registering and login user"
 		},
 		{
-			"name": "welcome_page",
+			"name": "Home Page",
 			"request": {
 				"method": "GET",
 				"header": [
@@ -1098,88 +1208,6 @@
 					"port": "3000",
 					"path": [
 						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "signup",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set(\"jwt\", pm.response.json().token);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Language",
-						"value": "hi",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"het\",\n    \"email\": \"het123@gmail.com\",\n    \"password\": \"het12345\",\n    \"confirmPassword\": \"het12345\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{URL}}signup",
-					"host": [
-						"{{URL}}signup"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "login",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.environment.set(\"jwt\", pm.response.json().token);"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Accept-Language",
-						"value": "hi",
-						"type": "text",
-						"disabled": true
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"email\": \"het123@gmail.com\",\n    \"password\": \"het12345\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{URL}}login",
-					"host": [
-						"{{URL}}login"
 					]
 				}
 			},
